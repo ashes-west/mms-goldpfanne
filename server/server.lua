@@ -44,7 +44,6 @@ end
 
 RegisterServerEvent('mms-goldpfanne:server:addreward')
 AddEventHandler('mms-goldpfanne:server:addreward', function()
-    print('StartServerFunc')
 	local _source = source
 	local Character = VORPcore.getUser(_source).getUsedCharacter
 	local chance =  math.random(1,10)
@@ -57,13 +56,9 @@ AddEventHandler('mms-goldpfanne:server:addreward', function()
 	local chance2 = math.random(1,keysx(reward))
 	local count = math.random(1,reward[chance2].amount)
 	exports.vorp_inventory:canCarryItems(tonumber(_source), count, function(canCarry)
-        print('Can Carry')
 		exports.vorp_inventory:canCarryItem(tonumber(_source), reward[chance2].name,count, function(canCarry2)
-            print('Can Carry2')
 			if canCarry and canCarry2 then
-                print('Debug')
 				exports.vorp_inventory:addItem(_source, reward[chance2].name, count)
-                print('Debug2')
 				VORPcore.NotifyTip(_source, Config.YouFound .." "..reward[chance2].label, 5000)
 			else
 				VORPcore.NotifyTip(_source, Config.InvFull .." "..reward[chance2].label, 5000)

@@ -12,8 +12,8 @@ AddEventHandler('mms-goldpfanne:client:startgoldpfanne',function()
         for k, _ in pairs(Config.locations) do
             if water == Config.locations[k].hash and IsPedOnFoot(playerPed) and IsEntityInWater(playerPed) then
                 active = true
+                TriggerServerEvent('mms-goldpfanne:server:ToolUsage')
                 Goldpan()
-                
             end        
         end
     end

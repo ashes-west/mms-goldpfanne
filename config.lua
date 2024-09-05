@@ -5,14 +5,24 @@ Config = {}
 Config.GoldPanItem = 'goldpan'   --- Goldpan item DB name
 Config.GoldPanTime = 25000  ------ Time for Searching
 Config.RewardChance = 65  ----- 65% Success Rate
+Config.ToolUsage = 2   ----- Remove Tool Usage Per Golsearch
+Config.UsageLeft = "Haltbarkeit: "
+Config.needNewTool = "Waschpfanne Kaputt!"
 ---------------------------------------------------------------
 
 ----------------------- Reward Settings -----------------------
 
 Config.Items = {   ---- As Higher the Chance to find an item
-    {name = "rock", label = "Stein", chance = 10, amount = 2},
-    {name = "gold_nugget", label = "Gold Nugget", chance = 3, amount = 2},
-    {name = "fossil", label = "Fossil", chance = 1, amount = 2},
+    {name = "rock", label = "Stein", chance = 1, amount = 5},
+    {name = "gold_nugget", label = "Gold Nugget", chance = 2, amount = 4},
+    {name = "fossil", label = "Fossil", chance = 3, amount = 6},
+    {name = "rock", label = "Stein", chance = 4, amount = 5},
+    {name = "gold_nugget", label = "Gold Nugget", chance = 5, amount = 4},
+    {name = "fossil", label = "Fossil", chance = 6, amount = 4},
+    {name = "rock", label = "Stein", chance = 7, amount = 5},
+    {name = "gold_nugget", label = "Gold Nugget", chance = 8, amount = 5},
+    {name = "fossil", label = "Fossil", chance = 9, amount = 6},
+    {name = "rock", label = "Stein", chance = 10, amount = 4},
 }
 
 

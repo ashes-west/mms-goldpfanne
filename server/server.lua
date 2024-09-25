@@ -34,37 +34,34 @@ exports.vorp_inventory:registerUsableItem(Config.GoldPanItem, function(data)
     TriggerClientEvent('mms-goldpfanne:client:startgoldpfanne',source)
 end)
 
-function keysx(table)
-    local keys = 0
-    for k,v in pairs(table) do
-       keys = keys + 1
-    end
-    return keys
-end
 
 RegisterServerEvent('mms-goldpfanne:server:addreward')
 AddEventHandler('mms-goldpfanne:server:addreward', function()
-	local _source = source
-	local Character = VORPcore.getUser(_source).getUsedCharacter
-	local chance =  math.random(1,10)
-	local reward = {}
-	for k,v in pairs(Config.Items) do 
-		if v.chance >= chance then
-			table.insert(reward,v)
-		end
-	end
-	local chance2 = math.random(1,keysx(reward))
-	local count = math.random(1,reward[chance2].amount)
-	exports.vorp_inventory:canCarryItems(tonumber(_source), count, function(canCarry)
-		exports.vorp_inventory:canCarryItem(tonumber(_source), reward[chance2].name,count, function(canCarry2)
-			if canCarry and canCarry2 then
-				exports.vorp_inventory:addItem(_source, reward[chance2].name, count)
-				VORPcore.NotifyTip(_source, Config.YouFound .." "..reward[chance2].label, 5000)
-			else
-				VORPcore.NotifyTip(_source, Config.InvFull .." "..reward[chance2].label, 5000)
-			end
-		end)
-	end) 
+	local src = source
+	local Chance =  math.random(1,100)
+	if Chance <= Config.NormalChance then
+        local TableMaxIndex = #Config.NormalItems
+        local TableRandomIndex = math.random(1,TableMaxIndex)
+        local RandomItem = Config.NormalItems[TableRandomIndex]
+        local CanCarry = exports.vorp_inventory:canCarryItem(src, RandomItem.Name, RandomItem.Amount)
+        if CanCarry then
+            exports.vorp_inventory:addItem(src, RandomItem.Name, RandomItem.Amount)
+            VORPcore.NotifyTip(src, _U('YouFound') .. RandomItem.Amount .. ' ' .. RandomItem.Label, 5000)
+        else
+            VORPcore.NotifyTip(src, _U('InvFull'), 5000)
+        end
+    elseif Chance > Config.NormalChance then
+        local TableMaxIndex = #Config.RareItems
+        local TableRandomIndex = math.random(1,TableMaxIndex)
+        local RandomItem = Config.NormalItems[TableRandomIndex]
+        local CanCarry = exports.vorp_inventory:canCarryItem(src, RandomItem.Name, RandomItem.Amount)
+        if CanCarry then
+            exports.vorp_inventory:addItem(src, RandomItem.Name, RandomItem.Amount)
+            VORPcore.NotifyTip(src, _U('YouFound') .. RandomItem.Amount .. ' ' .. RandomItem.Label, 5000)
+        else
+            VORPcore.NotifyTip(src, _U('InvFull'), 5000)
+        end
+    end
 end)
 
 RegisterServerEvent('mms-goldpfanne:server:ToolUsage',function()
@@ -78,14 +75,14 @@ RegisterServerEvent('mms-goldpfanne:server:ToolUsage',function()
 
     if next(toolMeta) == nil then
         exports.vorp_inventory:subItem(src, toolItem, 1, {})
-        exports.vorp_inventory:addItem(src, toolItem, 1, { description = Config.UsageLeft .. 100 - toolUsage, durability = 100 - toolUsage })
+        exports.vorp_inventory:addItem(src, toolItem, 1, { description = _U('UsageLeft') .. 100 - toolUsage, durability = 100 - toolUsage })
     else
         local durabilityValue = toolMeta.durability - toolUsage
         exports.vorp_inventory:subItem(src, toolItem, 1, toolMeta)
 
         if durabilityValue >= toolUsage then
             exports.vorp_inventory:subItem(src, toolItem, 1, toolMeta)
-            exports.vorp_inventory:addItem(src, toolItem, 1, { description = Config.UsageLeft .. durabilityValue, durability = durabilityValue })
+            exports.vorp_inventory:addItem(src, toolItem, 1, { description = _U('UsageLeft') .. durabilityValue, durability = durabilityValue })
         elseif durabilityValue < toolUsage then
             exports.vorp_inventory:subItem(src, toolItem, 1, toolMeta)
             VORPcore.NotifyRightTip(src, _U('needNewTool'), 4000)

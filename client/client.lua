@@ -24,7 +24,7 @@ function Goldpan()
     local goldpan = CreateObject(GetHashKey('p_cs_miningpan01x'), GetEntityCoords(playerPed), true, true, true)
     local righthand = GetEntityBoneIndexByName(playerPed, "SKEL_R_HAND")
     AttachEntityToEntity(goldpan, playerPed, righthand, 0.2, 0.0, -0.20, -100.0, -50.0, 0.0, false, false, false, true, 2, true)
-    VORPcore.NotifyTip(Config.YouAreGoldpaning , Config.GoldPanTime)
+    VORPcore.NotifyTip(_U('YouAreGoldpaning') , Config.GoldPanTime)
     Citizen.Wait(1000)
     CrouchAnim()
     Citizen.Wait(5000)
@@ -62,6 +62,6 @@ function Reward()
     if reward <= Config.RewardChance then
         TriggerServerEvent('mms-goldpfanne:server:addreward')
     else
-        VORPcore.NotifyTip(Config.NothingFound , 5000)
+        VORPcore.NotifyTip(_U('NothingFound') , 5000)
     end
 end

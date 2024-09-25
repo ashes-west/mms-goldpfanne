@@ -1,32 +1,34 @@
 Config = {}
 
------------------------- GOLDPAN SETTINGS -------------------------------
+Config.defaultlang = "de_lang"
+
+------------------------ Goldpanning Settings -----------------
 
 Config.GoldPanItem = 'goldpan'   --- Goldpan item DB name
 Config.GoldPanTime = 25000  ------ Time for Searching
-Config.RewardChance = 65  ----- 65% Success Rate
+Config.RewardChance = 75  ----- 75% Success Rate  
 Config.ToolUsage = 2   ----- Remove Tool Usage Per Golsearch
-Config.UsageLeft = "Haltbarkeit: "
-Config.needNewTool = "Waschpfanne Kaputt!"
----------------------------------------------------------------
+
 
 ----------------------- Reward Settings -----------------------
 
-Config.Items = {   ---- As Higher the Chance to find an item
-    {name = "rock", label = "Stein", chance = 1, amount = 5},
-    {name = "gold_nugget", label = "Gold Nugget", chance = 2, amount = 4},
-    {name = "fossil", label = "Fossil", chance = 3, amount = 6},
-    {name = "rock", label = "Stein", chance = 4, amount = 5},
-    {name = "gold_nugget", label = "Gold Nugget", chance = 5, amount = 4},
-    {name = "fossil", label = "Fossil", chance = 6, amount = 4},
-    {name = "rock", label = "Stein", chance = 7, amount = 5},
-    {name = "gold_nugget", label = "Gold Nugget", chance = 8, amount = 5},
-    {name = "fossil", label = "Fossil", chance = 9, amount = 6},
-    {name = "rock", label = "Stein", chance = 10, amount = 4},
+-- Max Chance is 100% if Normal is 70 Rare Chance is 30
+
+Config.NormalChance = 70
+
+Config.NormalItems = {   ---- As Higher the Chance to find an item
+    { Name = "rock", Label = "Stein", Amount = 5 },
+    { Name = "gold_nugget", Label = "Gold Nugget", Amount = 4 },
+    { Name = "fossil", Label = "Fossil", Amount = 6 },
+}
+
+Config.RareItems = {   ---- As Higher the Chance to find an item
+    { Name = "fossil", Label = "Fossil", Amount = 6 },
+    { Name = "diamond", Label = "Diamant", Amount = 6 },
 }
 
 
-----------------------------------------------------------------------
+----------------------------------------------------------------
 Config.locations = { -- Wild Water Locations
     [1]  = { name = 'Sea of Coronado',     hash = -247856387  },
     [2]  = { name = 'San Luis River',      hash = -1504425495 },
@@ -64,18 +66,3 @@ Config.locations = { -- Wild Water Locations
     [35] = { name = 'Mattlock Pond',       hash =  301094150  },
     [36] = { name = 'Southfield Flats',    hash = -823661292  },
 }
-
-
-
----------------------- Laguage Settings ------------------------
---DE--
-Config.YouAreGoldpaning = 'Du schürfst nach Gold'
-Config.NothingFound = 'Du hast nichts Gefunden'
-Config.YouFound = 'Du findest'
-Config.InvFull = 'Du kannst nicht mehr Tragen'
-
---EN--
---Config.YouAreGoldpaning = 'looking for Gold'
---Config.NothingFound = 'Nothing Found'
---Config.YouFound = 'You found'
---Config.InvFull = 'You can't carry any more'

@@ -120,6 +120,14 @@ RegisterServerEvent('mms-goldpfanne:server:ToolUsage',function()
         if durabilityValue >= toolUsage then
             exports.vorp_inventory:addItem(src, toolItem, 1, { description = _U('UsageLeft') .. durabilityValue, durability = durabilityValue })
         elseif durabilityValue < toolUsage then
+            if Config.ReturnItemOnDepletion then
+                local CanCarry = exports.vorp_inventory:canCarryItem(src, Config.ReturnItemOnDepletion, 1)
+                if (CanCarry) then
+                    exports.vorp_inventory:addItem(src, Config.ReturnItemOnDepletion, 1, {})
+                else
+                    VORPcore.NotifyTip(src, _U('InvFull'), 5000)
+                end
+            end
             VORPcore.NotifyRightTip(src, _U('needNewTool'), 4000)
         end
     end

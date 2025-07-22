@@ -10,10 +10,18 @@ Config.GoldPanTime = 25000  ------ Time for Searching
 Config.RewardChance = 75  ----- 75% Success Rate
 Config.ToolUsage = 2   ----- Remove Tool Usage Per Goldsearch
 
+-- Return an item when the player's gold pan reaches 0 durability? 
+Config.ReturnItemOnDepletion = false -- false or item name like "goldpan_broken"
+--[[
+You can run this query to add an basic broken gold pan to your server's database:
+INSERT IGNORE INTO items (`item`, `label`, `limit`, `can_remove`, `type`, `usable`, `desc`) 
+VALUES ('goldpan_broken', 'Gold pan (broken)', 10, 1, 'item_standard', 0, 'A broken gold pan. Perhaps a blacksmith can repair it or at least melt it down.');
+--]]
+
 
 ------------------------ SkillCheck Settings ------------------
 
--- uses syn_minigame which usually comes already with vorp
+-- uses syn_minigame, which usually comes bundled with VORP
 Config.DoSkillCheck  = false -- Shall user have to absolve a minigame for skillcheck?
 Config.MaxDifficulty = 3000  -- Lower number is harder.
 Config.MinDifficulty = 6000  -- Lower number is harder.

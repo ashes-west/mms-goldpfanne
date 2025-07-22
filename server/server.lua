@@ -82,9 +82,32 @@ RegisterServerEvent('mms-goldpfanne:server:ToolUsage',function()
     local src = source
     local user = VORPcore.getUser(src)
     if not user then return end
+
     local toolItem = Config.GoldPanItem
     local toolUsage = Config.ToolUsage
-    local tool = exports.vorp_inventory:getItem(src, toolItem)
+
+    -- Get all player items from inventory
+    local playerItems = exports.vorp_inventory:getUserInventoryItems(src)
+    if not playerItems then return end
+
+    -- Select tool with the lowest durability
+    local tool
+    local minDurability = 101
+    for _, item in ipairs(playerItems) do
+        if item.name == toolItem then
+            local dura = item.metadata and item.metadata.durability or 100
+            if dura < minDurability then
+                tool = item
+                minDurability = dura
+            end
+        end
+    end
+
+    if not tool then
+        VORPcore.NotifyRightTip(src, _U('needNewTool'), 4000)
+        return
+    end
+
     local toolMeta =  tool['metadata']
 
     if next(toolMeta) == nil then
@@ -95,10 +118,8 @@ RegisterServerEvent('mms-goldpfanne:server:ToolUsage',function()
         exports.vorp_inventory:subItem(src, toolItem, 1, toolMeta)
 
         if durabilityValue >= toolUsage then
-            exports.vorp_inventory:subItem(src, toolItem, 1, toolMeta)
             exports.vorp_inventory:addItem(src, toolItem, 1, { description = _U('UsageLeft') .. durabilityValue, durability = durabilityValue })
         elseif durabilityValue < toolUsage then
-            exports.vorp_inventory:subItem(src, toolItem, 1, toolMeta)
             VORPcore.NotifyRightTip(src, _U('needNewTool'), 4000)
         end
     end

@@ -2,12 +2,21 @@ Config = {}
 
 Config.defaultlang = "de_lang"
 
+
 ------------------------ Goldpanning Settings -----------------
 
 Config.GoldPanItem = 'goldpan'   --- Goldpan item DB name
 Config.GoldPanTime = 25000  ------ Time for Searching
-Config.RewardChance = 75  ----- 75% Success Rate  
-Config.ToolUsage = 2   ----- Remove Tool Usage Per Golsearch
+Config.RewardChance = 75  ----- 75% Success Rate
+Config.ToolUsage = 2   ----- Remove Tool Usage Per Goldsearch
+
+
+------------------------ SkillCheck Settings ------------------
+
+-- uses syn_minigame which usually comes already with vorp
+Config.DoSkillCheck  = false -- Shall user have to absolve a minigame for skillcheck?
+Config.MaxDifficulty = 3000  -- Lower number is harder.
+Config.MinDifficulty = 6000  -- Lower number is harder.
 
 
 ----------------------- Reward Settings -----------------------

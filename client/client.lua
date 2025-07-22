@@ -30,11 +30,24 @@ function Goldpan()
     Citizen.Wait(5000)
     GoldShake()
     Citizen.Wait(Config.GoldPanTime - 5000)
+    local success = not Config.DoSkillCheck or DoSkillCheck()
     ClearPedTasks(playerPed)
     DeleteObject(goldpan)
-    TriggerServerEvent('mms-goldpfanne:server:addreward')
+    if success then
+        TriggerServerEvent('mms-goldpfanne:server:addreward')
+    else
+        VORPcore.NotifyTip(_U('FailedSkillcheck') , 5000)
+    end
     active = false
 end
+
+function DoSkillCheck()
+    -- Keep in mind that these client-side games are only effective against macros and won't protect against other forms of exploits.
+    local randomizer = math.random(Config.MaxDifficulty, Config.MinDifficulty)
+    local skillCheckResult = exports["syn_minigame"]:taskBar(randomizer, 7)
+    return skillCheckResult == 100
+end
+
 
 --- UTILS ---
 

@@ -5,4 +5,5 @@ Locales["en_lang"] = {
     InvFull = 'You cant carry any more',
     needNewTool = 'You Need a New Goldpan',
     UsageLeft = 'Durability: ',
+    FailedSkillcheck = 'You accidentally spilled the gold pan contents.',
 }

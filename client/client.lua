@@ -14,7 +14,7 @@ AddEventHandler('mms-goldpfanne:client:startgoldpfanne',function()
                 active = true
                 TriggerServerEvent('mms-goldpfanne:server:ToolUsage')
                 Goldpan()
-            end        
+            end
         end
     end
 end)
@@ -32,7 +32,7 @@ function Goldpan()
     Citizen.Wait(Config.GoldPanTime - 5000)
     ClearPedTasks(playerPed)
     DeleteObject(goldpan)
-    Reward()
+    TriggerServerEvent('mms-goldpfanne:server:addreward')
     active = false
 end
 
@@ -48,6 +48,7 @@ function CrouchAnim()
     local coords = GetEntityCoords(ped)
     TaskPlayAnim(ped, dict, "inspectfloor_player", 0.5, 8.0, -1, 1, 0, false, false, false)
 end
+
 function GoldShake()
     local dict = "script_re@gold_panner@gold_success"
     RequestAnimDict(dict)
@@ -55,13 +56,4 @@ function GoldShake()
         Wait(10)
     end
     TaskPlayAnim(PlayerPedId(), dict, "SEARCH02", 1.0, 8.0, -1, 1, 0, false, false, false)
-end
-
-function Reward()
-    local reward = math.random(1,100)
-    if reward <= Config.RewardChance then
-        TriggerServerEvent('mms-goldpfanne:server:addreward')
-    else
-        VORPcore.NotifyTip(_U('NothingFound') , 5000)
-    end
 end

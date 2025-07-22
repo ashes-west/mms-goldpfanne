@@ -13,12 +13,12 @@ local function CheckVersion()
     PerformHttpRequest('https://raw.githubusercontent.com/RetryR1v2/mms-goldpfanne/main/version.txt', function(err, text, headers)
         local currentVersion = GetResourceMetadata(GetCurrentResourceName(), 'version')
 
-        if not text then 
+        if not text then
             versionCheckPrint('error', 'Currently unable to run a version check.')
-            return 
+            return
         end
 
-      
+
         if text == currentVersion then
             versionCheckPrint('success', 'You are running the latest version.')
         else
@@ -37,31 +37,45 @@ end)
 
 RegisterServerEvent('mms-goldpfanne:server:addreward')
 AddEventHandler('mms-goldpfanne:server:addreward', function()
-	local src = source
-	local Chance =  math.random(1,100)
-	if Chance <= Config.NormalChance then
+    local src = source
+
+    -- Determine whether gold panning was successful
+    if math.random(1,100) > Config.RewardChance then
+        VORPcore.NotifyTip(src, _U('NothingFound'), 5000)
+        return
+    end
+
+    -- Determine the reward
+    local Chance =  math.random(1,100)
+    local RewardItem = nil
+    if Chance <= Config.NormalChance then
         local TableMaxIndex = #Config.NormalItems
         local TableRandomIndex = math.random(1,TableMaxIndex)
-        local RandomItem = Config.NormalItems[TableRandomIndex]
-        local CanCarry = exports.vorp_inventory:canCarryItem(src, RandomItem.Name, RandomItem.Amount)
-        if CanCarry then
-            exports.vorp_inventory:addItem(src, RandomItem.Name, RandomItem.Amount)
-            VORPcore.NotifyTip(src, _U('YouFound') .. RandomItem.Amount .. ' ' .. RandomItem.Label, 5000)
-        else
-            VORPcore.NotifyTip(src, _U('InvFull'), 5000)
-        end
-    elseif Chance > Config.NormalChance then
+        RewardItem = Config.NormalItems[TableRandomIndex]
+    else
         local TableMaxIndex = #Config.RareItems
         local TableRandomIndex = math.random(1,TableMaxIndex)
-        local RandomItem = Config.NormalItems[TableRandomIndex]
-        local CanCarry = exports.vorp_inventory:canCarryItem(src, RandomItem.Name, RandomItem.Amount)
-        if CanCarry then
-            exports.vorp_inventory:addItem(src, RandomItem.Name, RandomItem.Amount)
-            VORPcore.NotifyTip(src, _U('YouFound') .. RandomItem.Amount .. ' ' .. RandomItem.Label, 5000)
-        else
-            VORPcore.NotifyTip(src, _U('InvFull'), 5000)
-        end
+        RewardItem = Config.RareItems[TableRandomIndex]
     end
+
+    -- Try to hand the player their reward
+    local RewardAmount = RewardItem.Amount
+    local Handed = false
+    repeat
+        local CanCarry = exports.vorp_inventory:canCarryItem(src, RewardItem.Name, RewardAmount)
+        if CanCarry then
+            exports.vorp_inventory:addItem(src, RewardItem.Name, RewardAmount)
+            VORPcore.NotifyTip(src, _U('YouFound') .. RewardAmount .. ' ' .. RewardItem.Label, 5000)
+            Handed = true
+        else
+            RewardAmount = RewardAmount - 1
+        end
+    until Handed or RewardAmount <= 0
+
+    if not Handed then
+        VORPcore.NotifyTip(src, _U('InvFull'), 5000)
+    end
+
 end)
 
 RegisterServerEvent('mms-goldpfanne:server:ToolUsage',function()

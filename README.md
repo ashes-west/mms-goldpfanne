@@ -17,7 +17,6 @@
 - Safety Check Added Skillgame (Minigame to Config) for Macro or Bot Protection
 - He also Switched the Reward system to ServerSide
 - He also Edited the Reward System you can a less reward if you get 5 but can only carry 4 you will ge the 4 instead of nothing.
-- You now need BCC-Minigame if you Update to new version
 
 # Depencies
 

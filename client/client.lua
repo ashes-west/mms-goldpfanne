@@ -14,7 +14,7 @@ AddEventHandler('mms-goldpfanne:client:startgoldpfanne',function()
                 active = true
                 TriggerServerEvent('mms-goldpfanne:server:ToolUsage')
                 Goldpan()
-            end        
+            end
         end
     end
 end)
@@ -30,11 +30,24 @@ function Goldpan()
     Citizen.Wait(5000)
     GoldShake()
     Citizen.Wait(Config.GoldPanTime - 5000)
+    local success = not Config.DoSkillCheck or DoSkillCheck()
     ClearPedTasks(playerPed)
     DeleteObject(goldpan)
-    Reward()
+    if success then
+        TriggerServerEvent('mms-goldpfanne:server:addreward')
+    else
+        VORPcore.NotifyTip(_U('FailedSkillcheck') , 5000)
+    end
     active = false
 end
+
+function DoSkillCheck()
+    -- Keep in mind that these client-side games are only effective against macros and won't protect against other forms of exploits.
+    local randomizer = math.random(Config.MaxDifficulty, Config.MinDifficulty)
+    local skillCheckResult = exports["syn_minigame"]:taskBar(randomizer, 7)
+    return skillCheckResult == 100
+end
+
 
 --- UTILS ---
 
@@ -48,6 +61,7 @@ function CrouchAnim()
     local coords = GetEntityCoords(ped)
     TaskPlayAnim(ped, dict, "inspectfloor_player", 0.5, 8.0, -1, 1, 0, false, false, false)
 end
+
 function GoldShake()
     local dict = "script_re@gold_panner@gold_success"
     RequestAnimDict(dict)
@@ -55,13 +69,4 @@ function GoldShake()
         Wait(10)
     end
     TaskPlayAnim(PlayerPedId(), dict, "SEARCH02", 1.0, 8.0, -1, 1, 0, false, false, false)
-end
-
-function Reward()
-    local reward = math.random(1,100)
-    if reward <= Config.RewardChance then
-        TriggerServerEvent('mms-goldpfanne:server:addreward')
-    else
-        VORPcore.NotifyTip(_U('NothingFound') , 5000)
-    end
 end

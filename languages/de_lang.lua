@@ -1,8 +1,9 @@
 Locales["de_lang"] = {
-    YouAreGoldpaning = 'Du Schürfst nach Gold',
-    NothingFound = 'Du hast nichts Gefunden',
-    YouFound = 'Du Findest: ',
-    InvFull = 'Du kannst nicht mehr Tragen',
-    needNewTool = 'Du brauchst eine neue Goldpfanne',
+    YouAreGoldpaning = 'Du schürfst nach Gold.',
+    NothingFound = 'Du hast nichts gefunden.',
+    YouFound = 'Du findest: ',
+    InvFull = 'Du kannst nicht mehr tragen.',
+    needNewTool = 'Du brauchst eine neue Goldpfanne.',
     UsageLeft = 'Haltbarkeit: ',
+    FailedSkillcheck = 'Du hast den Goldpfanneninhalt ausversehen verschüttet.',
 }

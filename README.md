@@ -13,6 +13,7 @@
 - 1.1.4 Fixed Empty Random Bug
 - Changed to Laguage Files Support
 - Now Supports New Vorp Exports
+- 1.1.5 Merged Pull Request from @MRRummler
 
 # Depencies
 

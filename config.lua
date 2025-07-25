@@ -43,6 +43,7 @@ Config.NormalItems = {   ---- As Higher the Chance to find an item
 }
 
 Config.RareItems = {   ---- As Higher the Chance to find an item
+    { Name = "mms-treasuremap", Label = "Schatzkarte", Amount = 1 },
     { Name = "goldring", Label = "Goldring", Amount = 1 },
     { Name = "diamond", Label = "Diamant", Amount = 1 },
     { Name = "emerald", Label = "Smaragd", Amount = 1 },

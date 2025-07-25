@@ -11,7 +11,7 @@ Config.RewardChance = 75  ----- 75% Success Rate
 Config.ToolUsage = 2   ----- Remove Tool Usage Per Goldsearch
 
 -- Return an item when the player's gold pan reaches 0 durability? 
-Config.ReturnItemOnDepletion = false -- false or item name like "goldpan_broken"
+Config.ReturnItemOnDepletion = "goldpan_brolen" -- false or item name like "goldpan_broken"
 --[[
 You can run this query to add an basic broken gold pan to your server's database:
 INSERT IGNORE INTO items (`item`, `label`, `limit`, `can_remove`, `type`, `usable`, `desc`) 
@@ -22,7 +22,7 @@ VALUES ('goldpan_broken', 'Gold pan (broken)', 10, 1, 'item_standard', 0, 'A bro
 ------------------------ SkillCheck Settings ------------------
 
 -- uses syn_minigame, which usually comes bundled with VORP
-Config.DoSkillCheck  = false -- Shall user have to absolve a minigame for skillcheck?
+Config.DoSkillCheck  = true -- Shall user have to absolve a minigame for skillcheck?
 Config.MaxDifficulty = 3000  -- Lower number is harder.
 Config.MinDifficulty = 6000  -- Lower number is harder.
 
@@ -31,17 +31,23 @@ Config.MinDifficulty = 6000  -- Lower number is harder.
 
 -- Max Chance is 100% if Normal is 70 Rare Chance is 30
 
-Config.NormalChance = 70
+Config.NormalChance = 90
 
 Config.NormalItems = {   ---- As Higher the Chance to find an item
-    { Name = "rock", Label = "Stein", Amount = 5 },
-    { Name = "gold_nugget", Label = "Gold Nugget", Amount = 4 },
-    { Name = "fossil", Label = "Fossil", Amount = 6 },
+    { Name = "rock", Label = "Stein", Amount = 1 },
+    { Name = "rock", Label = "Stein", Amount = 2 },
+    { Name = "gold_nugget", Label = "Gold Nugget", Amount = 1 },
+    { Name = "gold_nugget", Label = "Gold Nugget", Amount = 2 },
+    { Name = "gold_nugget", Label = "Gold Nugget", Amount = 3 },
+
 }
 
 Config.RareItems = {   ---- As Higher the Chance to find an item
-    { Name = "fossil", Label = "Fossil", Amount = 6 },
-    { Name = "diamond", Label = "Diamant", Amount = 6 },
+    { Name = "goldring", Label = "Goldring", Amount = 1 },
+    { Name = "diamond", Label = "Diamant", Amount = 1 },
+    { Name = "emerald", Label = "Smaragd", Amount = 1 },
+    { Name = "gold_nugget", Label = "Gold Nugget", Amount = 4 },
+    { Name = "gold_nugget", Label = "Gold Nugget", Amount = 5 },
 }
 
 

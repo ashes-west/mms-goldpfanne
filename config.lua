@@ -11,7 +11,7 @@ Config.RewardChance = 75  ----- 75% Success Rate
 Config.ToolUsage = 2   ----- Remove Tool Usage Per Goldsearch
 
 -- Return an item when the player's gold pan reaches 0 durability? 
-Config.ReturnItemOnDepletion = "goldpan_brolen" -- false or item name like "goldpan_broken"
+Config.ReturnItemOnDepletion = "goldpan_broken" -- false or item name like "goldpan_broken"
 --[[
 You can run this query to add an basic broken gold pan to your server's database:
 INSERT IGNORE INTO items (`item`, `label`, `limit`, `can_remove`, `type`, `usable`, `desc`) 
